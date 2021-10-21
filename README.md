@@ -1,2 +1,5 @@
 # azure-blob-experiments
-Experiments related to Azure Blob Storage
+
+This repo contains some experiments and helpers for interacting with Azure Blob Storage.
+
+The main driver behind this is the unreasonably slow download of blobs when using the SDK.
