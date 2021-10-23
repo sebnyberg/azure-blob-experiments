@@ -8,15 +8,14 @@ import (
 	"github.com/Azure/azure-storage-blob-go/azblob"
 )
 
-type Blob struct {
-	ctx context.Context
-	// name  string
+type blob struct {
+	ctx   context.Context
 	url   azblob.BlobURL
 	count int
 }
 
-func (b *Blob) ReadAt(p []byte, off int64) (n int, err error) {
-	blobCount := n
+func (b *blob) ReadAt(p []byte, off int64) (n int, err error) {
+	blobCount := b.count
 	if len(p)+int(off) > b.count { // last block
 		blobCount = azblob.CountToEnd
 	}
@@ -30,13 +29,13 @@ func (b *Blob) ReadAt(p []byte, off int64) (n int, err error) {
 	var ntot, nread int
 	for {
 		nread, err = reader.Read(p[ntot:])
+		ntot += nread
 		if err != nil {
 			if errors.Is(err, io.EOF) {
 				break
 			}
 			return 0, err
 		}
-		ntot += nread
 	}
 	if err != nil {
 		return 0, err
