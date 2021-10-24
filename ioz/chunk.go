@@ -188,5 +188,8 @@ func (d *chunkReader) getErr() error {
 // Close closes the downloader.
 func (d *chunkReader) Close() error {
 	d.maybeSetErr(errors.New("reader closed by caller"))
-	return d.getErr()
+	if err := d.getErr(); err != io.EOF {
+		return err
+	}
+	return nil
 }
