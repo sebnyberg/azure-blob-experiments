@@ -1,4 +1,4 @@
-package download
+package ioz
 
 import (
 	"bytes"
@@ -26,10 +26,7 @@ func TestParallelChunkReader(t *testing.T) {
 		{len(want) + 2, len(want) + 2},
 	} {
 		t.Run(fmt.Sprintf("chunkSize:%v\tparallelism:%v", tc.chunkSize, tc.parallelism), func(t *testing.T) {
-			reader, err := ParallelChunkReader(context.Background(), wantReader, len(want), &Config{
-				ChunkSize:   tc.chunkSize,
-				Parallelism: tc.parallelism,
-			})
+			reader, err := ParallelChunkReader(context.Background(), wantReader, len(want), tc.chunkSize, tc.parallelism)
 			require.NoError(t, err)
 			buf := make([]byte, tc.chunkSize)
 			res := make([]byte, len(want))
