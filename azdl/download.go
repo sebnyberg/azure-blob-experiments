@@ -1,12 +1,12 @@
 package azdl
 
 import (
-	"a/ioz"
 	"context"
 	"fmt"
 	"io"
 
 	"github.com/Azure/azure-storage-blob-go/azblob"
+	"github.com/sebnyberg/azure-blob-experiments/ioz"
 )
 
 // DownloadBlobConcurrently downloads the provided blob with up to parallelism
