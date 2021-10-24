@@ -1,4 +1,4 @@
-package download
+package azdl
 
 import (
 	"a/ioz"
